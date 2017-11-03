@@ -20,59 +20,57 @@ import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
 
+    private Integer mScore;
+    private Random mRando;
+    private DisplayMetrics mDisplay;
+    private ArrayList<ImageButton> mTokenView; //handle for all the tokens that will be created
+    private TextView mScoreView;
+    private List<Integer> mTokenAdd; //scores for which to add a new token
+    private ConstraintLayout mLayout;
+    private View.OnClickListener mDoTokenTap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        score = 0;
-        scoreView = ((TextView) findViewById(R.id.scoreText));
-        scoreView.setText("score: " + score);
-        rando = new Random();
-        display = new DisplayMetrics();
-        getWindowManager().getDefaultDisplay().getMetrics(display);
-        tokenView = new ArrayList<ImageButton>();
-        tokenView.add((ImageButton)findViewById(R.id.token));
-        tokenAdd = new int[]{10, 20, 25, 30, 33, 36, 38, 40};
-        layout = (ConstraintLayout) findViewById(R.id.mainLayout);
-        DoTokenTap = new View.OnClickListener()
+        mScore = 0;
+        mScoreView = ((TextView) findViewById(R.id.scoreText));
+        mScoreView.setText("score: " + mScore);
+        mRando = new Random();
+        mDisplay = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(mDisplay);
+        mTokenView = new ArrayList<ImageButton>();
+        mTokenView.add((ImageButton)findViewById(R.id.token));
+        mTokenAdd = Arrays.asList(10, 20, 25, 30, 33, 36, 38, 40);
+        mLayout = (ConstraintLayout) findViewById(R.id.mainLayout);
+        mDoTokenTap = new View.OnClickListener()
         {
             public void onClick(View view) {
-                TokenTap(view);
+                tokenTap(view);
             }
         };
     }
 
-    private int score; //score
-    private Random rando; //random number generator
-    private DisplayMetrics display; //display metric
-    private ArrayList<ImageButton> tokenView; //handle for the token view
-    private TextView scoreView; //handle for the score text view
-    private int tokenAdd[]; //scores for which to add a new token
-    private ConstraintLayout layout; //handler for the parent layout
-    private View.OnClickListener DoTokenTap;
 
-    public void TokenTap(View view) {
-        score++;
-        scoreView.setText("score: " + score);
-        if(Arrays.asList(tokenAdd).contains(score) || score >= 42)
+
+    public void tokenTap(View view) {
+        mScore++;
+        mScoreView.setText("score: " + mScore);
+        if(mTokenAdd.contains(mScore) || mScore >= 42)
         {
-            tokenView.add( new ImageButton(this));
-            tokenView.get(tokenView.size()-1).setLayoutParams(tokenView.get(0).getLayoutParams());
-            layout.addView(tokenView.get(tokenView.size()-1), tokenView.get(0).getLayoutParams());
-            tokenView.get(tokenView.size()-1).setImageResource(R.drawable.token);
-            tokenView.get(tokenView.size()-1).setOnClickListener(DoTokenTap);
+            mTokenView.add( new ImageButton(this));
+            mTokenView.get(mTokenView.size()-1).setLayoutParams(mTokenView.get(0).getLayoutParams());
+            mLayout.addView(mTokenView.get(mTokenView.size()-1), mTokenView.get(0).getLayoutParams());
+            mTokenView.get(mTokenView.size()-1).setImageResource(R.drawable.token);
+            mTokenView.get(mTokenView.size()-1).setOnClickListener(mDoTokenTap);
         }
-        //getContext().getResources().getDisplayMetrics();
-        for(View token : tokenView)
+        for(View token : mTokenView)
         {
-            token.setX(rando.nextInt(display.widthPixels - token.getWidth()) + 1);
-            //token.setX((display.widthPixels - token.getWidth()) + 1);
-            token.setY(rando.nextInt(display.heightPixels - token.getHeight()-200) + 1);
-            //token.setY((display.heightPixels - token.getHeight()) + 1-200);
+            token.setX(mRando.nextInt(mDisplay.widthPixels - token.getWidth()) + 1);
+            token.setY(mRando.nextInt(mDisplay.heightPixels - token.getHeight()-200) + 1);
         }
     }
-    //private View.OnClickListener mCorkyListener = new View.OnClickListener() {
 
 
 }
