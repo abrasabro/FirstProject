@@ -60,10 +60,11 @@ public class MainActivity extends AppCompatActivity {
         if(mTokenAdd.contains(mScore) || mScore >= 42)
         {
             mTokenView.add( new ImageButton(this));
-            mTokenView.get(mTokenView.size()-1).setLayoutParams(mTokenView.get(0).getLayoutParams());
+            /*mTokenView.get(mTokenView.size()-1).setLayoutParams(mTokenView.get(0).getLayoutParams());
             mLayout.addView(mTokenView.get(mTokenView.size()-1), mTokenView.get(0).getLayoutParams());
             mTokenView.get(mTokenView.size()-1).setImageResource(R.drawable.token);
-            mTokenView.get(mTokenView.size()-1).setOnClickListener(mDoTokenTap);
+            mTokenView.get(mTokenView.size()-1).setOnClickListener(mDoTokenTap);*/
+            //Do all this with inflate instead
         }
         for(View token : mTokenView)
         {
