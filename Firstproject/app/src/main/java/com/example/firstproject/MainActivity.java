@@ -1,11 +1,13 @@
 package com.example.firstproject;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private List<Integer> mTokenAdd; //scores for which to add a new token
     private ConstraintLayout mLayout;
     private View.OnClickListener mDoTokenTap;
+    private LayoutInflater mInflater;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +53,7 @@ public class MainActivity extends AppCompatActivity {
                 tokenTap(view);
             }
         };
+        mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
 
@@ -59,12 +63,8 @@ public class MainActivity extends AppCompatActivity {
         mScoreView.setText("score: " + mScore);
         if(mTokenAdd.contains(mScore) || mScore >= 42)
         {
-            mTokenView.add( new ImageButton(this));
-            /*mTokenView.get(mTokenView.size()-1).setLayoutParams(mTokenView.get(0).getLayoutParams());
+            mTokenView.add( (ImageButton) mInflater.inflate(R.layout.token_imagebutton, null));
             mLayout.addView(mTokenView.get(mTokenView.size()-1), mTokenView.get(0).getLayoutParams());
-            mTokenView.get(mTokenView.size()-1).setImageResource(R.drawable.token);
-            mTokenView.get(mTokenView.size()-1).setOnClickListener(mDoTokenTap);*/
-            //Do all this with inflate instead
         }
         for(View token : mTokenView)
         {
