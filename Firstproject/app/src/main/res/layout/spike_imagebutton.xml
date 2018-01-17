@@ -2,12 +2,12 @@
 <ImageButton
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/token"
+    android:id="@+id/spike"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginStart="48dp"
     android:layout_marginTop="96dp"
-    android:onClick="tokenTap"
+    android:onClick="spikeTap"
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent"
-    app:srcCompat="@drawable/token" />
+    app:srcCompat="@android:drawable/ic_delete" />

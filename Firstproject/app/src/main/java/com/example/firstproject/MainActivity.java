@@ -1,6 +1,7 @@
 package com.example.firstproject;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView mScoreView;
     private List<Integer> mTokenAdd; //scores for which to add a new token
     private ConstraintLayout mLayout;
-    private View.OnClickListener mDoTokenTap;
     private LayoutInflater mInflater;
 
     @Override
@@ -47,12 +47,6 @@ public class MainActivity extends AppCompatActivity {
         mTokenView.add((ImageButton)findViewById(R.id.token));
         mTokenAdd = Arrays.asList(10, 20, 25, 30, 33, 36, 38, 40);
         mLayout = (ConstraintLayout) findViewById(R.id.mainLayout);
-        mDoTokenTap = new View.OnClickListener()
-        {
-            public void onClick(View view) {
-                tokenTap(view);
-            }
-        };
         mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
@@ -63,7 +57,10 @@ public class MainActivity extends AppCompatActivity {
         mScoreView.setText("score: " + mScore);
         if(mTokenAdd.contains(mScore) || mScore >= 42)
         {
-            mTokenView.add( (ImageButton) mInflater.inflate(R.layout.token_imagebutton, null));
+            if(mRando.nextBoolean())
+                mTokenView.add( (ImageButton) mInflater.inflate(R.layout.token_imagebutton, null));
+            else
+                mTokenView.add( (ImageButton) mInflater.inflate(R.layout.spike_imagebutton, null));
             mLayout.addView(mTokenView.get(mTokenView.size()-1), mTokenView.get(0).getLayoutParams());
         }
         for(View token : mTokenView)
@@ -71,6 +68,12 @@ public class MainActivity extends AppCompatActivity {
             token.setX(mRando.nextInt(mDisplay.widthPixels - token.getWidth()) + 1);
             token.setY(mRando.nextInt(mDisplay.heightPixels - token.getHeight()-200) + 1);
         }
+    }
+
+    public void spikeTap(View view) {
+        Intent intent = new Intent(this, MenuActivity.class);
+        intent.putExtra("lastScore", mScore);
+        startActivity(intent);
     }
 
 

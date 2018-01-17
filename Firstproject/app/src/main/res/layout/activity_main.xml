@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -8,16 +9,10 @@
     android:id="@+id/mainLayout">
 
 
-    <ImageButton
-        android:id="@+id/token"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="48dp"
-        android:layout_marginTop="96dp"
-        android:onClick="tokenTap"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@android:drawable/star_big_on" />
+    <include
+        layout="@layout/token_imagebutton"
+        tools:layout_editor_marginStart="180dp"
+        tools:layout_editor_margintop="240dp" />
 
     <TextView
         android:id="@+id/scoreText"
@@ -25,7 +20,7 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="none"
-        android:text= "asdfgdf"
+        android:text= "uninitialized"
         android:onClick="tokenTap"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
