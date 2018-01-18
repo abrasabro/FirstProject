@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(mDisplay);
         mTokenView = new ArrayList<ImageButton>();
         mTokenView.add((ImageButton)findViewById(R.id.token));
-        mTokenAdd = Arrays.asList(10, 20, 25, 30, 33, 36, 38, 40);
+        mTokenAdd = Arrays.asList(5, 10, 15, 20, 25, 30, 33, 36, 38, 40);
         mLayout = (ConstraintLayout) findViewById(R.id.mainLayout);
         mInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -67,12 +67,21 @@ public class MainActivity extends AppCompatActivity {
         {
             token.setX(mRando.nextInt(mDisplay.widthPixels - token.getWidth()) + 1);
             token.setY(mRando.nextInt(mDisplay.heightPixels - token.getHeight()-200) + 1);
+            if(token.getTag().equals("token")){
+                token.setScaleX(token.getScaleX()*.95f);
+                token.setScaleY(token.getScaleY()*.95f);
+            }
+            else if(token.getTag().equals("spike")){
+                token.setScaleX(token.getScaleX()*1.05f);
+                token.setScaleY(token.getScaleY()*1.05f);
+            }
         }
     }
 
     public void spikeTap(View view) {
         Intent intent = new Intent(this, MenuActivity.class);
         intent.putExtra("lastScore", mScore);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

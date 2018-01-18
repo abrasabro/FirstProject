@@ -1,6 +1,7 @@
 package com.example.firstproject;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -20,36 +21,30 @@ public class MenuActivity extends AppCompatActivity {
     private int mHiScore;
     private TextView mLastScoreView;
     private TextView mHiScoreView;
+    private SharedPreferences mSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_menu);
         Log.i("a", "oncreate");
-        if(savedInstanceState == null){
-            Log.i("a", "null");
-            mLastScore = 0;
-            mHiScore = 0;
-        }
-        else{
-            Log.i("a", "not null");
-            mHiScore = savedInstanceState.getInt(STATE_HISCORE);
-            mLastScore = (int) savedInstanceState.getSerializable("lastScore");
-            if(mLastScore > mHiScore)
-                mHiScore = mLastScore;
-        }
+        mSave = getPreferences(0);
+        mHiScore = mSave.getInt("hiScore", 0);
+        mLastScore = getIntent().getIntExtra("lastScore", 0);
+        if(mLastScore > mHiScore)
+            mHiScore = mLastScore;
         mLastScoreView = findViewById(R.id.lastScore_TextView);
         mHiScoreView = findViewById(R.id.hiScore_TextView);
         mLastScoreView.setText("" + mLastScore);
         mHiScoreView.setText("" + mHiScore);
     }
     @Override
-    public void onSaveInstanceState(Bundle savedInstanceState){
-        savedInstanceState.putInt(STATE_HISCORE, mHiScore);
-        super.onSaveInstanceState(savedInstanceState);
-        Log.i("a", "save instance state");
+    public void onPause(){
+        super.onPause();
+        SharedPreferences.Editor editor = mSave.edit();
+        editor.putInt("hiScore", mHiScore);
+        editor.commit();
     }
-
 
     public void clickPlay(View view){
         Intent intent = new Intent(this, MainActivity.class);
