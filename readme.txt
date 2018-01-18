@@ -1,1 +1,1 @@
-first project
+First android app. Tap the coins, but not the X's. The coins shrink, but the X's only get bigger.
